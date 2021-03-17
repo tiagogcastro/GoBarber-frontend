@@ -2,7 +2,7 @@ import React, { useCallback, useRef } from 'react';
 import { Form } from '@unform/web'; 
 import { FormHandles } from '@unform/core'
 import * as Yup from 'yup';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 // Icons
 import { FiLogIn, FiMail, FiLock } from 'react-icons/fi';
@@ -28,6 +28,8 @@ const SignIn: React.FC = () => {
   const { signIn } = useAuth();
   const { addToast } = useToast();
 
+  const history = useHistory();
+
   const handleSubmit = useCallback( async (data: SignInFormData) => {
     try {
       formRef.current?.setErrors({});
@@ -48,6 +50,14 @@ const SignIn: React.FC = () => {
         email: data.email,
         password: data.password
       });
+
+      history.push('/dashboard')
+      addToast({
+        type: 'success',
+        title: 'Login realizado com sucesso',
+        description: 'Bem vindo de volta!'
+      });
+
     } catch (err) {
       if(err instanceof Yup.ValidationError) {
         const errors = getValidationErrors(err);
@@ -63,7 +73,7 @@ const SignIn: React.FC = () => {
         description: 'Ocorreu um erro ao fazer login, cheque as credencias.'
       });
     }
-  }, [signIn, addToast]);
+  }, [signIn, addToast, history]);
 
   return (
     <Container>
