@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { 
   Container, 
   Header, 
@@ -7,6 +7,8 @@ import {
   Content,
   Schedule,
   NextAppointment, 
+  Section,
+  Appointment,
   Calendar 
 } from './styles';
 
@@ -15,6 +17,7 @@ import { FiClock, FiPower } from 'react-icons/fi';
 import { useAuth } from '../../hooks/auth';
 
 const Dashboard: React.FC = () => {
+  const [selectedDate, setSelectedDate] = useState(new Date());
   const { signOut, user } = useAuth();
 
   return (
@@ -57,6 +60,62 @@ const Dashboard: React.FC = () => {
               </span>
             </div>
           </NextAppointment>
+        
+          <Section>
+            <strong>Manhã</strong>
+
+            <Appointment>
+              <span>
+                <FiClock />
+                08:00
+              </span>
+              <div>
+                <img src="https://avatars.githubusercontent.com/u/65419756?v=4" alt="Tiago Gonçalves" />
+
+                <strong>Tiago Gonçalves</strong>  
+              </div>
+            </Appointment>
+
+            <Appointment>
+              <span>
+                <FiClock />
+                09:00
+              </span>
+              <div>
+                <img src="https://avatars.githubusercontent.com/u/65419756?v=4" alt="Tiago Gonçalves" />
+
+                <strong>Tiago Gonçalves</strong>  
+              </div>
+            </Appointment>
+          </Section>
+
+          <Section>
+            <strong>Tarde</strong>
+
+            <Appointment>
+              <span>
+                <FiClock />
+                14:00
+              </span>
+              <div>
+                <img src="https://avatars.githubusercontent.com/u/65419756?v=4" alt="Tiago Gonçalves" />
+
+                <strong>Tiago Gonçalves</strong>  
+              </div>
+            </Appointment>
+
+            <Appointment>
+              <span>
+                <FiClock />
+                15:00
+              </span>
+              <div>
+                <img src="https://avatars.githubusercontent.com/u/65419756?v=4" alt="Tiago Gonçalves" />
+
+                <strong>Tiago Gonçalves</strong>  
+              </div>
+            </Appointment>
+          </Section>
         </Schedule>
         <Calendar>
 
