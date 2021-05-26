@@ -21,6 +21,7 @@ import logoImg from '../../assets/logo.svg';
 import { FiClock, FiPower } from 'react-icons/fi';
 import { useAuth } from '../../hooks/auth';
 import api from '../../services/api';
+import { isAfter } from 'date-fns/esm';
 
 interface IMonthAvailabilityItem {
   day: number;
@@ -120,6 +121,12 @@ const Dashboard: React.FC = () => {
     });
   }, [appointments]);
 
+  const nextAppointment = useMemo(() => {
+    return appointments.find(appointment => 
+      isAfter(parseISO(appointment.date), new Date())  
+    );
+  }, [appointments]);
+
   return (
     <Container>
       <Header>
@@ -147,20 +154,24 @@ const Dashboard: React.FC = () => {
             <span>{selectedDateAsText}</span>
             <span>{selectedWeekDay}</span>
           </p>
-
-          <NextAppointment>
-            <strong>Atendimento a seguir</strong>
+          {isToday(selectedDate) && nextAppointment && (
+            <NextAppointment>
+            <strong>Agendamento a seguir</strong>
             <div>
-              <img src="https://avatars.githubusercontent.com/u/65419756?v=4" alt="Tiago Gonçalves" />
+              <img 
+                src={nextAppointment?.user.avatar_url} 
+                alt={nextAppointment?.user.name}
+              />
 
-              <strong>Tiago Gonçalves</strong>
+              <strong>{nextAppointment?.user.name}</strong>
               <span>
                 <FiClock />
-                08:00
+                {nextAppointment.hourFormatted}
               </span>
             </div>
           </NextAppointment>
-        
+          )}
+          
           <Section>
             <strong>Manhã</strong>
 
