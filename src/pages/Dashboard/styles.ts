@@ -60,7 +60,6 @@ export const Profile = styled.div`
   }
 `;
 
-
 export const Content = styled.main`
   max-width: 1120px;
   margin: 64px auto;
@@ -161,6 +160,10 @@ export const Section = styled.section`
     display: block;
     padding-bottom: 16px;
     margin-bottom: 16px;
+  }
+
+  > p {
+    color: #999591;
   }
 `;
 
